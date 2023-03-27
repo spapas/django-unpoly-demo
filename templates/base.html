@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Unpoly Demo</title>
+    
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1'>
+    <link rel="stylesheet" type="text/css" href="{% static '/unpoly/unpoly.min.css' %}" />
+    
+    <link rel="stylesheet" type="text/css" href="{% static '/css/application.css' %}" />
+    
+    
+  </head>
+
+  <body>
+    <loading-indicator></loading-indicator>
+    {% include "partials/_nav.html" %}
+
+    <div up-main class="container">
+      {% include "partials/_messages.html" %}
+      {% block content %}
+      {% endblock %}
+
+      {% include "partials/_fragment_explainer.html" %}
+
+    </div>
+
+    <script src="{% static 'unpoly/unpoly.min.js' %}"></script>
+    <script src="{% static 'unpoly/unpoly-bootstrap4.min.js' %}"></script>
+  </body>
+</html>

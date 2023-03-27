@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load core_tags crispy_forms_tags %}
+
+{% block content %}
+<form up-submit up-validate method="POST">
+	{% csrf_token %}
+	{% tourdot %}
+		<p>The form is being validated on the server as you're completing fields.</p>
+		<p>Try entering a duplicate company name and focusing the next field..</p>
+	{% endtourdot %}
+	{{ form|crispy }}
+
+	<input type='submit' class='btn btn-primary mt-2' value='Save'>
+	{% tourdot %}
+		<p>Saving an invalid form will re-render validation errors in the same overlay.</p>
+		<p>Links and forms always render in the same layer unless another layer is targeted explicitly.</p>
+	{% endtourdot %}
+</form>
+{% endblock %}

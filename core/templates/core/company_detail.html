@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load core_tags crispy_forms_tags %}
+
+{% block content %}
+<div class="row mb-4">
+	<div class="col">
+	  <h2>Company {{ company.id }}</h2>
+	</div>
+  
+	<div class="col-sm-auto">
+	  	{% tourdot %}
+		<p>Note how the <i>Edit</i> link renders within this overlay.</p>
+		<p>Links and forms always update their own layer unless another layer is targeted explicitly.</p>
+		{% endtourdot %}
+		
+		<a up-follow href='{% url "company-update" company.id %}' class="btn btn-primary" up-follow>Edit</a>
+	  {% comment %}
+	  <%= link_to 'Delete', @company, method: :delete, 'up-follow': '', 'up-confirm' => 'Really delete?', class: 'btn btn-danger mr-3'  %>
+	  {% endcomment %}
+	</div>
+  </div>
+  
+  <dl>
+	<dt>Name</dt>
+	<dd>{{ company.name }}</dd>
+	<dt>Address</dt>
+	<dd>
+	  {{ company.address|linebreaks }}
+	</dd>
+  </dl>
+  
+  <div class="row mb-2">
+	<div class="col">
+	  <h4>Projects</h4>
+	</div>
+  
+	<div class="col-sm-auto">
+	  <div class="col-sm-auto">
+		<%= tour_dot(position: 'left') do %>
+		  When a new project was created, the project list is
+		  reloaded automatically.
+		<% end %>
+		<%= link_to 'Add project', new_project_path(project: { company_id: @company.id }), class: 'btn btn-primary btn-sm',
+		  'up-layer': 'new',
+		  'up-accept-location': project_path('$id'),
+		  'up-on-accepted': "up.reload('.projects')",
+		  'up-context': { from_company: true }.to_json
+		%>
+	  </div>
+	</div>
+  </div>
+  
+  <div class="projects">
+	<% if @company.projects.present? %>
+	  <table class="table table-sm">
+		<thead>
+		<th>Name</th>
+		<th>Budget</th>
+		</thead>
+		<tbody>
+		  <% @company.projects.natural_sort_by(&:name).each_with_index do |project, i| %>
+			<tr>
+			  <td>
+				<%= link_to project.name, project,
+				  'up-layer': 'new',
+				  'up-dismiss-event': 'project:destroyed',
+				  'up-on-dismissed': 'up.reload(".projects")',
+				  'up-context': { from_company: true }.to_json
+				%>
+				<%= tour_dot(overlay_only: true) do %>
+				  <p>Opening the project will open another modal over this one.</p>
+				  <p>Overlays can be stacked infinitely.</p>
+				<% end if i == 0%>
+			  </td>
+			  <td align="right">
+				<%= number_to_currency(project.budget, unit: '€') %>
+			  </td>
+			</tr>
+		  <% end %>
+		</tbody>
+	  </table>
+	<% else %>
+	  <p>
+		This company has no projects yet.
+	  </p>
+	<% end %>
+  </div>
+  
+
+{% endblock %}
