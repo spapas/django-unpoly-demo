@@ -1,0 +1,4 @@
+crispy-bootstrap4==2022.1
+Django==4.1.7
+django-crispy-forms==2.0
+unpoly==0.3.0
