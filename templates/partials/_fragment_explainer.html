@@ -4,11 +4,13 @@
     <small>Last update:</small>
     <br>
     <b>
-      <% if fragment_explainer.up? %>
-        Fragment <code><%= fragment_explainer.updated_selector %></code>
-      <% else %>
+      
+      
+      {% if up %}
+        Fragment <code>{{ up.target }}</code>
+      {% else %}
         Full page load
-      <% end %>
+      {% endif %}
     </b>
   </div>
 
