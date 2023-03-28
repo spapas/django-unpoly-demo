@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load core_tags crispy_forms_tags %}
+
+{% block content %}
+<form up-submit up-validate method="POST">
+	{% csrf_token %}
+	<div class="input-group-append">
+        <span class="input-group-text">
+	<a 
+	up-layer='new popup'
+	up-align='right'
+	up-accept-event='name:select'
+	up-on-accepted="up.fragment.get('#id_name').value = value.name"
+	href='{% url "project-suggest-name" %}'>Suggest name</a>
+	{% tourdot %}
+	<p>
+		The link opens a popup with suggestions for a project name.
+	  </p>
+	  <p>
+		When a suggestion is clicked, the choice is communicated
+		back to the project form via a custom <code>name:select</code> event.</p>
+	  <p>
+		The <i>Suggest name</i> link has an <code>[up-on-accepted]</code>
+		attribute that copies the suggestion into the project form.
+	  </p>
+	{% endtourdot %}
+	</span>
+</div>
+	{{ form|crispy }}
+
+	<input type='submit' class='btn btn-primary mt-2' value='Save'>
+	{% tourdot %}
+		<p>Saving an invalid form will re-render validation errors in the same overlay.</p>
+		<p>Links and forms always render in the same layer unless another layer is targeted explicitly.</p>
+	{% endtourdot %}
+</form>
+{% endblock %}

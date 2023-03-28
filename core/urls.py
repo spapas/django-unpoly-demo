@@ -19,4 +19,26 @@ urlpatterns = [
         views.CompanyUpdateView.as_view(),
         name="company-update",
     ),
+    path("projects/", views.ProjectListView.as_view(), name="project-list"),
+    path(
+        "projects/suggest_name/",
+        views.ProjectSuggestNameView.as_view(),
+        name="project-suggest-name",
+    ),
+    path("projects/new/", views.ProjectCreateView.as_view(), name="project-create"),
+    path(
+        "projects/edit/<int:pk>/",
+        views.ProjectCreateView.as_view(),
+        name="project-edit",
+    ),
+    path(
+        "projects/detail/<int:pk>/",
+        views.ProjectDetailView.as_view(),
+        name="project-detail",
+    ),
+    path(
+        "projects/update/<int:pk>/",
+        views.ProjectUpdateView.as_view(),
+        name="project-update",
+    ),
 ]

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load core_tags %}
+{% block content %}
+  {% for n in names %}
+
+    {% if forloop.counter0 == 0 %}
+    {% tourdot %}
+      <p>
+        Each suggestion button has an <code>[up-emit="name:select"]</code> attribute.
+        When clicked it emits an <code>name:select</code> event on
+        the popup element.
+      </p>
+      <p>
+        The link that opened this popup is awaiting this event
+        via its <code>[up-accept-event]</code> attribute. When the element
+        is observed, the popup is automatically closed and the name copied
+        into the project form.
+      </p>
+    {% endtourdot %}
+    {% endif %}
+    
+    <a up-emit="name:select"
+      
+      up-emit-props='{"name": "{{ n }}"}'
+      class="btn btn-info text-light mb-2 mr-1"
+      tabindex="0">
+      {{ n }}
+    </a>
+
+  {% endfor %}
+{% endblock %}
