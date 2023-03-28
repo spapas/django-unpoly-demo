@@ -2,6 +2,13 @@
 {% load core_tags crispy_forms_tags %}
 
 {% block content %}
+
+{% if form.instance.id %}
+	<h2 class="mb-4">Edit project {{ form.instance }}</h2>
+{% else %}
+	<h2 class="mb-4">New project</h2>
+{% endif %}
+
 <form up-submit up-validate method="POST">
 	{% csrf_token %}
 	<div class="input-group-append">
@@ -27,6 +34,37 @@
 	</span>
 </div>
 	{{ form|crispy }}
+
+
+	<div class="input-group-append">
+        <span class="input-group-text">
+			<a href='{% url "company-create" %}'
+				up-layer='new'
+				up-accept-location='/core/companies/detail/$id/'
+				up-on-accepted: "up.validate('form', { params: { 'project[company_id]': value.id } })"
+			>
+			New company
+			</a>
+          
+          {% tourdot %}
+            <p>
+              A new company can be created in an overlay while the incomplete project form
+              stays open in the background.
+            </p>
+            <p>
+              The <i>New company</i> also defines a <i>close condition</i> using an <code>[up-accept-location]</code> attribute.
+              This causes the overlay to automatically close when it reaches the URL of a newly created company.
+            </p>
+
+            <p>
+              When a company was created successfully, the overlay is automatically closed.
+              The project form reloads the company select box so the new company appears
+              as an option.
+            </p>
+          {% endtourdot %}
+        </span>
+      </div>
+
 
 	<input type='submit' class='btn btn-primary mt-2' value='Save'>
 	{% tourdot %}

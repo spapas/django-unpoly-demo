@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load core_tags %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+      <h2>All projects</h2>
+    </div>
+  
+    <div class="col-sm-auto">
+      
+      <a 
+        class='btn btn-primary' 
+        up-layer='new'  
+        up-on-accepted="up.reload('.table', { focus: ':main' })"
+        up-accept-location='/core/projects/detail/$id/'
+        href='{% url "project-create" %}'>New project</a>
+
+    </div>
+  </div>
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Company</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+        {% for project in object_list %}
+        <tr>
+            <td>
+                <a 
+                up-layer='new'
+                up-on-dismissed="up.reload('.table', { focus: ':main' })"
+                up-dismiss-event='project:destroyed'
+                href="{% url 'project-detail' project.id %}">{{ project.name }}</a>
+
+            </td>
+            <td>
+              {{ project.company.name }}
+            </td>
+          </tr>
+        {% endfor %}
+
+    </tbody>
+  </table>
+  
+{% endblock %}

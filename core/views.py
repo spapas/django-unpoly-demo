@@ -55,7 +55,7 @@ class ProjectUpdateView(FormMixin, UpdateView):
 
 
 class ProjectListView(ListView):
-    model = models.Company
+    model = models.Project
 
 
 class ProjectSuggestNameView(TemplateView):
