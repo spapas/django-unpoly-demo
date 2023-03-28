@@ -1,0 +1,26 @@
+{% load core_tags %}
+<div class="card task {% if task.done %}done{% endif %}" tabindex="0">
+    <div class="card-body d-flex flex-column">
+      <div class="card-text flex-grow-1">
+        <b>{{ task.text }}</b>
+      </div>
+      <div class="flex-grow-0">
+        <a up-target='.task' href='{% url "task-update" task.id %}' class='btn btn-sm btn-outline-secondary'  >Edit</a>
+        <form method="POST"  up-target='.task' action="{% url 'task-done' task.id %}" class="d-inline">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-sm btn-outline-info">Done</button>
+        </form>
+        {% if forloop.counter0 == 0 %}
+          {% tourdot %}
+            <p>
+              This screen shows many task boxes with the same selector
+              (<code>&lt;div class="task"&gt;</code>).
+            </p>
+            <p>
+              Note how changing a task will only update a single task box.
+            </p>
+          {% endtourdot %}
+        {% endif %}
+      </div>
+    </div>
+  </div>

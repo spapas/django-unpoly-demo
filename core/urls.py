@@ -27,11 +27,6 @@ urlpatterns = [
     ),
     path("projects/new/", views.ProjectCreateView.as_view(), name="project-create"),
     path(
-        "projects/edit/<int:pk>/",
-        views.ProjectCreateView.as_view(),
-        name="project-edit",
-    ),
-    path(
         "projects/detail/<int:pk>/",
         views.ProjectDetailView.as_view(),
         name="project-detail",
@@ -40,5 +35,23 @@ urlpatterns = [
         "projects/update/<int:pk>/",
         views.ProjectUpdateView.as_view(),
         name="project-update",
+    ),
+    path("tasks/", views.TaskListView.as_view(), name="task-list"),
+    path("tasks/clear/", views.ClearTasksView.as_view(), name="task-clear"),
+    path("tasks/new/", views.TaskCreateView.as_view(), name="task-create"),
+    path(
+        "tasks/detail/<int:pk>/",
+        views.TaskDetailView.as_view(),
+        name="task-detail",
+    ),
+    path(
+        "tasks/update/<int:pk>/",
+        views.TaskUpdateView.as_view(),
+        name="task-update",
+    ),
+    path(
+        "tasks/done/<int:pk>/",
+        views.TaskDoneView.as_view(),
+        name="task-done",
     ),
 ]

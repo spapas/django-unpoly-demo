@@ -26,3 +26,11 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class Task(models.Model):
+    text = models.TextField()
+    done = models.BooleanField(default=False)
+
+    def get_absolute_url(self):
+        return reverse("task-detail", kwargs={"pk": self.pk})

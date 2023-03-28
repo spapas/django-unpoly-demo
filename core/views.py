@@ -1,12 +1,16 @@
-
 from django.views.generic import (
     CreateView,
     ListView,
     UpdateView,
     DetailView,
     TemplateView,
+    View,
 )
+from django.views.generic.detail import SingleObjectMixin
+from django.urls import reverse
 from . import models
+from django import forms
+from django.http import HttpResponseRedirect
 
 
 class FormMixin:
@@ -17,7 +21,7 @@ class FormMixin:
 
     def get_initial(self):
         initial = super().get_initial()
-        
+
         initial.update(self.request.GET.dict())
         return initial
 
@@ -63,6 +67,7 @@ class ProjectSuggestNameView(TemplateView):
 
     def get_context_data(self, **kwargs):
         import random
+
         ctx = super().get_context_data(**kwargs)
         names = []
         random.shuffle(ANIMALS)
@@ -71,6 +76,55 @@ class ProjectSuggestNameView(TemplateView):
         ctx["names"] = names
 
         return ctx
+
+
+class TaskListView(ListView):
+    model = models.Task
+
+
+class TaskForm(forms.ModelForm):
+    text = forms.CharField(widget=forms.Textarea(attrs={"rows": 2, "cols": 40}))
+
+    class Meta:
+        model = models.Task
+        fields = ["text"]
+
+
+class TaskCreateView(FormMixin, CreateView):
+    model = models.Task
+    form_class = TaskForm
+
+    def form_valid(self, form):
+        if form.is_valid() and not self.request.up.validate:
+            super().form_valid(form)
+            self.request.up.layer.accept()
+            return self.render_to_response(self.get_context_data(form=form))
+        return self.render_to_response(self.get_context_data(form=form))
+
+
+class TaskDetailView(DetailView):
+    model = models.Task
+
+
+class TaskUpdateView(FormMixin, UpdateView):
+    model = models.Task
+    form_class = TaskForm
+
+
+class TaskDoneView(SingleObjectMixin, View):
+    model = models.Task
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.done = not self.object.done
+        self.object.save()
+        return HttpResponseRedirect(self.object.get_absolute_url())
+
+
+class ClearTasksView(View):
+    def post(self, request, *args, **kwargs):
+        models.Task.objects.filter(done=True).delete()
+        return HttpResponseRedirect(reverse("task-list"))
 
 
 ANIMALS = [

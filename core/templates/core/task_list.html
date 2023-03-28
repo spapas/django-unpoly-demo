@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load core_tags %}
+
+{% block content %}
+<div class="row mb-4">
+  <div class="col">
+    <h2>Open tasks</h2>
+  </div>
+
+  <div class="col-sm-auto">
+    {% tourdot %}
+      <p>
+        The <i>Clear done</i> button has an <code>[up-target=".tasks"]</code> attribute.
+        Clicking the link will only update the <code>&lt;div class="tasks"&gt;</code> element.
+      </p>
+      <p>
+        Other HTML from the server response is discarded.
+      </p>
+    {% endtourdot %}
+    <form method='post' action='{% url "task-clear" %}' up-target='.tasks' class="d-inline">
+      {% csrf_token %}
+      <button class='btn btn-secondary'>Clear done</button>
+    </form>
+    
+    <a 
+      class='btn btn-primary' 
+      up-target='.tasks'
+      up-layer='new'
+      up-on-accepted="up.reload('.tasks')"
+      href='{% url "task-create" %}'>New task</a>
+  </div>
+</div>
+
+<div class="tasks">
+  {% for task in object_list %}
+    {% include "core/_task_partial.html" %}
+  {% endfor %}
+</div>
+
+  
+{% endblock %}
