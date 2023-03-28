@@ -18,9 +18,11 @@
 	{{ form|crispy }}
 
 	<input type='submit' class='btn btn-primary mt-2' value='Save'>
+	{% if not for.instance.id %}
 	{% tourdot %}
 		<p>Saving an invalid form will re-render validation errors in the same overlay.</p>
 		<p>Links and forms always render in the same layer unless another layer is targeted explicitly.</p>
 	{% endtourdot %}
+	{% endif %}
 </form>
 {% endblock %}

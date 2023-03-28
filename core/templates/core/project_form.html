@@ -41,7 +41,7 @@
 			<a href='{% url "company-create" %}'
 				up-layer='new'
 				up-accept-location='/core/companies/detail/$id/'
-				up-on-accepted: "up.validate('form', { params: { 'project[company_id]': value.id } })"
+				up-on-accepted="up.validate('form', { params: { 'company': value.id } })"
 			>
 			New company
 			</a>
@@ -67,9 +67,11 @@
 
 
 	<input type='submit' class='btn btn-primary mt-2' value='Save'>
-	{% tourdot %}
-		<p>Saving an invalid form will re-render validation errors in the same overlay.</p>
-		<p>Links and forms always render in the same layer unless another layer is targeted explicitly.</p>
-	{% endtourdot %}
+	{% if not form.instance %}
+		{% tourdot %}
+			<p>Saving an invalid form will re-render validation errors in the same overlay.</p>
+			<p>Links and forms always render in the same layer unless another layer is targeted explicitly.</p>
+		{% endtourdot %}
+	{% endif %}
 </form>
 {% endblock %}
