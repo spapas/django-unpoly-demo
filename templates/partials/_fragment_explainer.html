@@ -1,3 +1,5 @@
+{% load core_tags %}
+{% fragment_explainer as fe %}
 <div class="fragment-explainer" up-hungry up-fixed="bottom">
 
   <div class="fragment-explainer--cell">
@@ -13,20 +15,22 @@
       {% endif %}
     </b>
   </div>
-
+  
   <div class="fragment-explainer--cell">
-    <small>View template:</small>
+
+    <small>Template:</small>
     <br>
-    <a href="<%= fragment_explainer.view_github_url %>" target="_blank">
-      <code><%= fragment_explainer.view_short_path %></code>
+    <a href="{{ fe.template_code }}" target="_blank">
+      
+      <code>{{ fe.template }}</code>
     </a>
   </div>
 
   <div class="fragment-explainer--cell">
-    <small>Controller:</small>
+    <small>View:</small>
     <br>
-    <a href="<%= fragment_explainer.controller_github_url %>" target="_blank">
-      <code><%= fragment_explainer.controller_short_path %></code>
+    <a href="{{ fe.view_code }}" target="_blank">
+      <code>{{ fe.view }}</code>
     </a>
   </div>
 

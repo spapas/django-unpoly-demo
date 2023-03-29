@@ -3,6 +3,20 @@ from django import template
 register = template.Library()
 
 
+@register.simple_tag(takes_context=True)
+def fragment_explainer(context):
+    view = context["view"]
+    template_name = " ".join(view.get_template_names())
+    return {
+        "view": view.__class__.__name__,
+        "view_code": "https://github.com/spapas/django-unpoly-demo/blob/master/core/views.py",
+        "template": template_name,
+        "template_code": "https://github.com/spapas/django-unpoly-demo/tree/master/core/templates/{}".format(
+            template_name
+        ),
+    }
+
+
 @register.tag("tourdot")
 def do_tourdot(parser, token):
     nodelist = parser.parse(("endtourdot",))
@@ -18,8 +32,8 @@ class TourDotNode(template.Node):
         rendered = self.nodelist.render(context).strip()
         if not rendered.startswith("<p"):
             rendered = "<p>{}</p>".format(rendered)
-        
-        rendered +="""
+
+        rendered += """
         <p>
             <a href="#" up-dismiss class="btn btn-success btn-sm">OK</a>
         </p>
@@ -40,4 +54,6 @@ class TourDotNode(template.Node):
             up-size="medium"
             >
         </a>
-        """.format(output)
+        """.format(
+            output
+        )
