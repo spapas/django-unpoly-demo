@@ -64,4 +64,5 @@ urlpatterns = [
         views.TaskDoneView.as_view(),
         name="task-done",
     ),
+    path("tf/", views.TableFilterListView.as_view(), name="table-filter-list"),
 ]

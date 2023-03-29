@@ -7308,3 +7308,11 @@ up-popup-content {
   background-color: rgba(255, 221, 0, 0); }
   .new-fragment:not(.fragment-explainer):not(up-modal):not(up-popup).inserted {
     background-color: rgba(255, 221, 0, 0.7); }
+
+.table-container th.asc:after {
+  content: '\0000a0\0025b2';
+  float: right; }
+
+.table-container th.desc:after {
+  content: '\0000a0\0025bc';
+  float: right; }

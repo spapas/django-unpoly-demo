@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load core_tags crispy_forms_tags %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+  <div class="row mb-4">
+    <div class="col">
+      <h2>All companies</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+        <form up-submit class='form-inline' method='GET' action=''>
+            {{ filter.form|crispy }}
+            
+            <input class='btn btn-info' type='submit' value='Filter'>
+            <a up-follow href='{{ request.path }}' class='btn btn-secondary'>Reset</a>
+        </form>
+    </div>
+</div>
+
+  <div class='row'>
+    <div class='col'>
+    {% render_table table %}
+  </div>
+  </div>
+
+{% endblock %}

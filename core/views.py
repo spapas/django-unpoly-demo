@@ -9,9 +9,10 @@ from django.views.generic import (
 )
 from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
-from . import models
+from . import models, tables, filters
 from django import forms
 from django.http import HttpResponseRedirect
+from django_tables2 import RequestConfig
 
 
 class FormMixin:
@@ -154,6 +155,20 @@ class ClearTasksView(View):
     def post(self, request, *args, **kwargs):
         models.Task.objects.filter(done=True).delete()
         return HttpResponseRedirect(reverse("task-list"))
+
+
+class TableFilterListView(ListView):
+    model = models.Company
+    template_name = "core/company_table_filter.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        filter = filters.CompanyFilter(self.request.GET, self.get_queryset())
+        table = tables.CompanyTable(filter.qs)
+        RequestConfig(self.request).configure(table)
+        ctx["table"] = table
+        ctx["filter"] = filter
+        return ctx
 
 
 ANIMALS = [

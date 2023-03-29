@@ -7,6 +7,23 @@ up.log.enable()
 // Gray out tour dots once clicked.
 up.on('up:link:follow', '.tour-dot', (event, element) => { element.classList.add('viewed') })
 
+/*
+up.macro('nav a[href]', (link) => {
+  if(!link.href.endsWith('#')) link.setAttribute('up-alias', link.href + '?*')
+})
+*/
+
+up.macro('.pagination .page-item a.page-link', (link) => {
+  link.setAttribute('up-follow', link.href)
+  link.setAttribute('up-target', ".table-container")
+})
+
+up.macro('th.orderable a[href]', (link) => {
+  link.setAttribute('up-follow', link.href)
+  link.setAttribute('up-target', ".table-container")
+})
+
+
 // Don't highlight the fragment insertion from the initial compile on DOMContentLoaded.
 window.addEventListener('load', (event) => {
   // Show the yellow flash when a new fragment was inserted.
