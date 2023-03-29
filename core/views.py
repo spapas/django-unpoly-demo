@@ -4,6 +4,7 @@ from django.views.generic import (
     UpdateView,
     DetailView,
     TemplateView,
+    DeleteView,
     View,
 )
 from django.views.generic.detail import SingleObjectMixin
@@ -44,8 +45,30 @@ class CompanyUpdateView(FormMixin, UpdateView):
     fields = ["name", "address"]
 
 
+class CompanyDeleteView(DeleteView):
+    model = models.Company
+
+    def get_success_url(self):
+        return reverse("company-list")
+
+    def form_valid(self, form):
+        self.request.up.layer.emit("company:destroyed", {})
+        return super().form_valid(form)
+
+
 class ProjectDetailView(DetailView):
     model = models.Project
+
+
+class ProjectDeleteView(DeleteView):
+    model = models.Project
+
+    def get_success_url(self):
+        return reverse("project-list")
+
+    def form_valid(self, form):
+        self.request.up.layer.emit("project:destroyed", {})
+        return super().form_valid(form)
 
 
 class ProjectCreateView(FormMixin, CreateView):
@@ -81,6 +104,11 @@ class ProjectSuggestNameView(TemplateView):
 class TaskListView(ListView):
     model = models.Task
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["tasks"] = models.Task.objects.all().order_by("-id")
+        return ctx
+
 
 class TaskForm(forms.ModelForm):
     text = forms.CharField(widget=forms.Textarea(attrs={"rows": 2, "cols": 40}))
@@ -98,7 +126,8 @@ class TaskCreateView(FormMixin, CreateView):
         if form.is_valid() and not self.request.up.validate:
             super().form_valid(form)
             self.request.up.layer.accept()
-            return self.render_to_response(self.get_context_data(form=form))
+            return HttpResponseRedirect(self.object.get_absolute_url())
+            # return self.render_to_response(self.get_context_data(form=form))
         return self.render_to_response(self.get_context_data(form=form))
 
 

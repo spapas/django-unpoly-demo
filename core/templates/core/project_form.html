@@ -16,7 +16,7 @@
                 <a
                     up-layer='new popup'
                     up-align='left'
-					up-size='large'
+                    up-size='large'
                     up-accept-event='name:select'
                     up-on-accepted="up.fragment.get('#id_name').value = value.name"
                     href='{% url "project-suggest-name" %}'>Suggest name</a>
@@ -35,7 +35,6 @@
             </span>
         </div>
         {{ form|crispy }}
-
 
         <div class="input-group-append">
             <span class="input-group-text">
