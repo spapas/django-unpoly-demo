@@ -1,8 +1,8 @@
 //= require unpoly
 //= require unpoly-bootstrap4
 
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
-@import 'helpers';
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+@import '_helpers';
 
 @mixin block-spacing {
   margin-top: spacer(3);

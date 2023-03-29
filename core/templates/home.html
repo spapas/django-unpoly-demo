@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load core_tags %}
 
 {% block content %}
 <h2 class="mb-4">Unpoly Demo</h2>
@@ -59,25 +60,28 @@
 </p>
 
 <p>
-  Throughout the app you will see <b>green dots</b> <%= tour_dot { 'This is a hint!' } %>.
+  Throughout the app you will see <b>green dots</b> {% tourdot %} This is a hint! {% endtourdot %}
   Clicking on a dot will reveal a hint about what you can discover here.
 </p>
 
 <h4 class="mt-4 mb-3">Source code</h4>
 
 <p>
-  We encourage you to use your browser's DevTools to inspect the HTML. Take a closer look at links, forms and their <code>[up]</code> attributes.
+  We encourage you to use your browser's DevTools to inspect the HTML. 
+  Take a closer look at links, forms and their <code>[up]</code> attributes.
 </p>
 
 <p>
   The bar at the bottom of the screen shows links to the server-side code that rendered the last HTML response.
-  The entire application code can be cloned from the <a href="https://github.com/unpoly/unpoly-demo">unpoly-demo</a> repository.
-  <b>Don't be scared by it being a Ruby app!</b> It only makes a few SQL queries and renders HTML using a template language similar to PHP, Moustache or Pug.
+  The entire application code can be cloned from the <a href="https://github.com/spapas/django-unpoly-demo">django-unpoly-demo</a> repository.
+  This is a Django app that has been implemented using the original Ruby app as a base.
 </p>
 
 <p>
-  The frontend contains <a href="https://github.com/unpoly/unpoly-demo/blob/master/app/assets/javascripts/application.js">no significant JavaScript</a>
-  aside from Unpoly itself. The CSS is <a href="https://github.com/unpoly/unpoly-demo/blob/master/app/assets/stylesheets/application.scss">just Bootstrap 4</a>
+  The frontend contains <a href="https://github.com/unpoly/unpoly-demo/blob/master/app/assets/javascripts/application.js">
+  no significant JavaScript</a>
+  aside from Unpoly itself. 
+  The CSS is <a href="https://github.com/unpoly/unpoly-demo/blob/master/app/assets/stylesheets/application.scss">just Bootstrap 4</a>
   with minimal tweaks.
 </p>
 {% endblock %}
