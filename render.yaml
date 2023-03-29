@@ -2,6 +2,7 @@ services:
   - type: web
     name: unpoly_demo
     env: python
+    plan: free
     buildCommand: "./build.sh"
     startCommand: "gunicorn unpoly_demo.wsgi:application"
     envVars:
