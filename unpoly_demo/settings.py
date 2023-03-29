@@ -19,7 +19,8 @@ SECRET_KEY = os.environ.get(
     "SECRET_KEY",
     default="django-insecure-m#14j3@x^a6)_42x%yn4%rmy3ym$z@jn_7(%napllldb*))=xg",
 )
-DEBUG = "RENDER" not in os.environ
+# DEBUG = "RENDER" not in os.environ
+DEBUG = True
 
 ALLOWED_HOSTS = []
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
@@ -128,7 +129,8 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-if not DEBUG:
+# if not DEBUG:
+if True:
     # Tell Django to copy statics to the `staticfiles` directory
     # in your application directory on Render.
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
