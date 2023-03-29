@@ -7,6 +7,6 @@ services:
     startCommand: "gunicorn unpoly_demo.wsgi:application"
     envVars:
       - key: PYTHON_VERSION 
-        value: 3.10.7
+        value: "3.10.7"
       - key: SECRET_KEY
         generateValue: true
