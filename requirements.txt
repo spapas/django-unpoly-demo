@@ -1,6 +1,9 @@
+black==23.3.0
 crispy-bootstrap4==2022.1
 Django==4.1.7
 django-crispy-forms==2.0
 django-extensions==3.2.1
+djhtml==3.0.6
+libsass==0.22.0
 unpoly==0.3.0
 Werkzeug==2.2.3
