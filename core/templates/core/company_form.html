@@ -3,26 +3,26 @@
 
 {% block content %}
 
-{% if form.instance.id %}
-	<h2 class="mb-4">Edit company {{ form.instance }}</h2>
-{% else %}
-	<h2 class="mb-4">New company</h2>
-{% endif %}
+    {% if form.instance.id %}
+        <h2 class="mb-4">Edit company {{ form.instance }}</h2>
+    {% else %}
+        <h2 class="mb-4">New company</h2>
+    {% endif %}
 
-<form up-submit up-validate method="POST">
-	{% csrf_token %}
-	{% tourdot %}
-		<p>The form is being validated on the server as you're completing fields.</p>
-		<p>Try entering a duplicate company name and focusing the next field..</p>
-	{% endtourdot %}
-	{{ form|crispy }}
+    <form up-submit up-validate method="POST">
+        {% csrf_token %}
+        {% tourdot %}
+            <p>The form is being validated on the server as you're completing fields.</p>
+            <p>Try entering a duplicate company name and focusing the next field..</p>
+        {% endtourdot %}
+        {{ form|crispy }}
 
-	<input type='submit' class='btn btn-primary mt-2' value='Save'>
-	{% if not for.instance.id %}
-	{% tourdot %}
-		<p>Saving an invalid form will re-render validation errors in the same overlay.</p>
-		<p>Links and forms always render in the same layer unless another layer is targeted explicitly.</p>
-	{% endtourdot %}
-	{% endif %}
-</form>
+        <input type='submit' class='btn btn-primary mt-2' value='Save'>
+        {% if not for.instance.id %}
+            {% tourdot %}
+                <p>Saving an invalid form will re-render validation errors in the same overlay.</p>
+                <p>Links and forms always render in the same layer unless another layer is targeted explicitly.</p>
+            {% endtourdot %}
+        {% endif %}
+    </form>
 {% endblock %}

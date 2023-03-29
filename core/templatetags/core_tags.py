@@ -1,4 +1,5 @@
 from django import template
+from django.utils.html import strip_tags
 
 register = template.Library()
 
@@ -30,6 +31,9 @@ class TourDotNode(template.Node):
 
     def render(self, context):
         rendered = self.nodelist.render(context).strip()
+        size = "medium"
+        if len(strip_tags(rendered)) > 400:
+            size = "large"
         if not rendered.startswith("<p"):
             rendered = "<p>{}</p>".format(rendered)
 
@@ -51,9 +55,9 @@ class TourDotNode(template.Node):
             up-position="right"
             up-align="top"
             up-class="tour-hint"
-            up-size="medium"
+            up-size="{}"
             >
         </a>
         """.format(
-            output
+            output, size
         )

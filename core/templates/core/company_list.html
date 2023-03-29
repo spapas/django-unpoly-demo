@@ -2,11 +2,11 @@
 {% load core_tags %}
 
 {% block content %}
-<div class="row mb-4">
+  <div class="row mb-4">
     <div class="col">
       <h2>All companies</h2>
     </div>
-  
+
     <div class="col-sm-auto">
       {% tourdot {"overlay": true} %}
         <p>
@@ -21,44 +21,44 @@
           The <code>[up-on-accepted]</code> attribute causes the company list below to reload when the overlay closes.
         </p>
       {% endtourdot %}
-      <a 
-        class='btn btn-primary' 
-        up-layer='new'  
+      <a
+        class='btn btn-primary'
+        up-layer='new'
         up-on-accepted="up.reload('.table', { focus: ':main' })"
         up-accept-location='/core/companies/detail/$id/'
         href='{% url "company-create" %}'>New company</a>
 
     </div>
   </div>
-  
+
   <table class="table">
     <thead>
       <tr>
         <th>Name</th>
       </tr>
     </thead>
-  
-    <tbody>
-        {% for company in object_list %}
-        <tr>
-            <td>
-                <a 
-                up-layer='new'
-                up-on-dismissed="up.reload('.table', { focus: ':main' })"
-                up-dismiss-event='company:destroyed'
-                href="{% url 'company-detail' company.id %}">{{ company.name }}</a>
 
-                {% if forloop.counter0 == 0 %}
-                    {% tourdot %}
-                        The link to the company details has an <code>[up-layer=new]</code> attribute.
-                        This causes the link destination to open in an overlay.
-                    {% endtourdot %}
-                {% endif %}
-            </td>
-          </tr>
-        {% endfor %}
+    <tbody>
+      {% for company in object_list %}
+        <tr>
+          <td>
+            <a
+              up-layer='new'
+              up-on-dismissed="up.reload('.table', { focus: ':main' })"
+              up-dismiss-event='company:destroyed'
+              href="{% url 'company-detail' company.id %}">{{ company.name }}</a>
+
+            {% if forloop.counter0 == 0 %}
+              {% tourdot %}
+                The link to the company details has an <code>[up-layer=new]</code> attribute.
+                This causes the link destination to open in an overlay.
+              {% endtourdot %}
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
 
     </tbody>
   </table>
-  
+
 {% endblock %}

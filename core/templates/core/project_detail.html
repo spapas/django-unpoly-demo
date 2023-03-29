@@ -2,44 +2,44 @@
 {% load core_tags crispy_forms_tags %}
 
 {% block content %}
-<div class="row mb-4">
-	<div class="col">
-	  <h2>Project {{ project.id }}</h2>
-		
-		{% if up.context.from_company %}
-			{% tourdot %}
-			<p>
-			This overlay reuses the template that is also used for the
-			<a up-layer='root' href='{% url "project-list" %}'>Projects</a>
-			section
-			in the main navigation.
-			</p>
-			{% endtourdot %}
-		{% endif %}
-	</div>
-	<div class="col-sm-auto">
-	  	{% tourdot %}
-		<p>Note how the <i>Edit</i> link renders within this overlay.</p>
-		<p>Links and forms always update their own layer unless another layer is targeted explicitly.</p>
-		{% endtourdot %}
-		
-		<a up-follow href='{% url "project-update" project.id %}' class="btn btn-primary" up-follow>Edit</a>
+  <div class="row mb-4">
+    <div class="col">
+      <h2>Project {{ project.id }}</h2>
+
+      {% if up.context.from_company %}
+        {% tourdot %}
+          <p>
+            This overlay reuses the template that is also used for the
+            <a up-layer='root' href='{% url "project-list" %}'>Projects</a>
+            section
+            in the main navigation.
+          </p>
+        {% endtourdot %}
+      {% endif %}
+    </div>
+    <div class="col-sm-auto">
+      {% tourdot %}
+        <p>Note how the <i>Edit</i> link renders within this overlay.</p>
+        <p>Links and forms always update their own layer unless another layer is targeted explicitly.</p>
+      {% endtourdot %}
+
+      <a up-follow href='{% url "project-update" project.id %}' class="btn btn-primary" up-follow>Edit</a>
 	  {% comment %}
 	  <%= link_to 'Delete', @company, method: :delete, 'up-follow': '', 'up-confirm' => 'Really delete?', class: 'btn btn-danger mr-3'  %>
 	  {% endcomment %}
-	</div>
+    </div>
   </div>
-  
+
   <dl>
-	<dt>Name</dt>
-	<dd>{{ project.name }}</dd>
-	<dt>Budget</dt>
-	<dd>{{ project.budget }}</dd>
-	<dt>Company</dt>
-	<dd>{{ project.company }}</dd>
-	
+    <dt>Name</dt>
+    <dd>{{ project.name }}</dd>
+    <dt>Budget</dt>
+    <dd>{{ project.budget }}</dd>
+    <dt>Company</dt>
+    <dd>{{ project.company }}</dd>
+
   </dl>
-  
-  
+
+
 
 {% endblock %}

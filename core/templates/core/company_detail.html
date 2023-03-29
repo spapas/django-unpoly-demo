@@ -2,97 +2,97 @@
 {% load core_tags crispy_forms_tags %}
 
 {% block content %}
-<div class="row mb-4">
-	<div class="col">
-	  <h2>Company {{ company.id }}</h2>
-	</div>
-  
-	<div class="col-sm-auto">
-	  	{% tourdot %}
-		<p>Note how the <i>Edit</i> link renders within this overlay.</p>
-		<p>Links and forms always update their own layer unless another layer is targeted explicitly.</p>
-		{% endtourdot %}
-		
-		<a up-follow href='{% url "company-update" company.id %}' class="btn btn-primary" up-follow>Edit</a>
+  <div class="row mb-4">
+    <div class="col">
+      <h2>Company {{ company.id }}</h2>
+    </div>
+
+    <div class="col-sm-auto">
+      {% tourdot %}
+        <p>Note how the <i>Edit</i> link renders within this overlay.</p>
+        <p>Links and forms always update their own layer unless another layer is targeted explicitly.</p>
+      {% endtourdot %}
+
+      <a up-follow href='{% url "company-update" company.id %}' class="btn btn-primary" up-follow>Edit</a>
 	  {% comment %}
 	  <%= link_to 'Delete', @company, method: :delete, 'up-follow': '', 'up-confirm' => 'Really delete?', class: 'btn btn-danger mr-3'  %>
 	  {% endcomment %}
-	</div>
+    </div>
   </div>
-  
+
   <dl>
-	<dt>Name</dt>
-	<dd>{{ company.name }}</dd>
-	<dt>Address</dt>
-	<dd>
-	  {{ company.address|linebreaks }}
-	</dd>
+    <dt>Name</dt>
+    <dd>{{ company.name }}</dd>
+    <dt>Address</dt>
+    <dd>
+      {{ company.address|linebreaks }}
+    </dd>
   </dl>
-  
+
   <div class="row mb-2">
-	<div class="col">
-	  <h4>Projects</h4>
-	</div>
-  
-	<div class="col-sm-auto">
-	  <div class="col-sm-auto">
-		{% tourdot %}
-		  When a new project was created, the project list is
-		  reloaded automatically.
-		{% endtourdot %}
-		<a class='btn btn-primary btn-sm' 
-			href='{% url "project-create" %}?company={{ company.id }}'
-			up-layer='new'
-			up-accept-location='/core/projects/detail/$id/'
-			up-on-accepted='up.reload(".projects")'
-			up-context='{"from_company": true}'
-		>
-			Add project
-		</a>
-		
-	  </div>
-	</div>
+    <div class="col">
+      <h4>Projects</h4>
+    </div>
+
+    <div class="col-sm-auto">
+      <div class="col-sm-auto">
+        {% tourdot %}
+          When a new project was created, the project list is
+          reloaded automatically.
+        {% endtourdot %}
+        <a class='btn btn-primary btn-sm'
+           href='{% url "project-create" %}?company={{ company.id }}'
+           up-layer='new'
+           up-accept-location='/core/projects/detail/$id/'
+           up-on-accepted='up.reload(".projects")'
+           up-context='{"from_company": true}'
+        >
+          Add project
+        </a>
+
+      </div>
+    </div>
   </div>
-  
+
   <div class="projects">
-	{% if company.project_set.all %}
-	  <table class="table table-sm">
-		<thead>
-		<th>Name</th>
-		<th>Budget</th>
-		</thead>
-		<tbody>
-			{% for project in company.project_set.all %}
-			<tr>
-			  <td>
-				<a href='{% url "project-detail" project.id %}'
-					up-layer='new'
-					up-dismiss-event='project:destroyed'
-					up-on-dismissed='up.reload(".projects")'
-					up-context='{"from_company": true}'
-				>
-				  {{ project.name }}
-				</a>
-				{% if forloop.counter0 == 0 %}
-					{% tourdot %}
-					<p>Opening the project will open another modal over this one.</p>
-					<p>Overlays can be stacked infinitely.</p>
-					{% endtourdot %}
-				{% endif %}
-			  </td>
-			  <td align="right">
-				{{ project.budget }}
-			  </td>
-			</tr>
-		  {% endfor %}
-		</tbody>
-	  </table>
-	{% else %}
-	  <p>
-		This company has no projects yet.
-	  </p>
-	{% endif %}
+    {% if company.project_set.all %}
+      <table class="table table-sm">
+        <thead>
+          <th>Name</th>
+          <th>Budget</th>
+        </thead>
+        <tbody>
+          {% for project in company.project_set.all %}
+            <tr>
+              <td>
+                <a href='{% url "project-detail" project.id %}'
+                   up-layer='new'
+                   up-dismiss-event='project:destroyed'
+                   up-on-dismissed='up.reload(".projects")'
+                   up-context='{"from_company": true}'
+                >
+                  {{ project.name }}
+                </a>
+                {% if forloop.counter0 == 0 %}
+                  {% tourdot %}
+                    <p>Opening the project will open another modal over this one.</p>
+                    <p>Overlays can be stacked infinitely.</p>
+                  {% endtourdot %}
+                {% endif %}
+              </td>
+              <td align="right">
+                {{ project.budget }}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>
+        This company has no projects yet.
+      </p>
+    {% endif %}
   </div>
-  
+
 
 {% endblock %}

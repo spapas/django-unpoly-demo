@@ -71,8 +71,8 @@ class ProjectSuggestNameView(TemplateView):
         ctx = super().get_context_data(**kwargs)
         names = []
         random.shuffle(ANIMALS)
-        for i in range(15):
-            names.append("-".join(ANIMALS[i * 5 : (i + 1) * 5]))
+        for i in range(10):
+            names.append("-".join(ANIMALS[i * 3 : (i + 1) * 3]))
         ctx["names"] = names
 
         return ctx

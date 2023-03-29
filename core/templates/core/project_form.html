@@ -3,75 +3,88 @@
 
 {% block content %}
 
-{% if form.instance.id %}
-	<h2 class="mb-4">Edit project {{ form.instance }}</h2>
-{% else %}
-	<h2 class="mb-4">New project</h2>
-{% endif %}
+    {% if form.instance.id %}
+        <h2 class="mb-4">Edit project {{ form.instance }}</h2>
+    {% else %}
+        <h2 class="mb-4">New project</h2>
+    {% endif %}
 
-<form up-submit up-validate method="POST">
-	{% csrf_token %}
-	<div class="input-group-append">
-        <span class="input-group-text">
-	<a 
-	up-layer='new popup'
-	up-align='right'
-	up-accept-event='name:select'
-	up-on-accepted="up.fragment.get('#id_name').value = value.name"
-	href='{% url "project-suggest-name" %}'>Suggest name</a>
-	{% tourdot %}
-	<p>
-		The link opens a popup with suggestions for a project name.
-	  </p>
-	  <p>
-		When a suggestion is clicked, the choice is communicated
-		back to the project form via a custom <code>name:select</code> event.</p>
-	  <p>
-		The <i>Suggest name</i> link has an <code>[up-on-accepted]</code>
-		attribute that copies the suggestion into the project form.
-	  </p>
-	{% endtourdot %}
-	</span>
-</div>
-	{{ form|crispy }}
-
-
-	<div class="input-group-append">
-        <span class="input-group-text">
-			<a href='{% url "company-create" %}'
-				up-layer='new'
-				up-accept-location='/core/companies/detail/$id/'
-				up-on-accepted="up.validate('form', { params: { 'company': value.id } })"
-			>
-			New company
-			</a>
-          
-          {% tourdot %}
-            <p>
-              A new company can be created in an overlay while the incomplete project form
-              stays open in the background.
-            </p>
-            <p>
-              The <i>New company</i> also defines a <i>close condition</i> using an <code>[up-accept-location]</code> attribute.
-              This causes the overlay to automatically close when it reaches the URL of a newly created company.
-            </p>
-
-            <p>
-              When a company was created successfully, the overlay is automatically closed.
-              The project form reloads the company select box so the new company appears
-              as an option.
-            </p>
-          {% endtourdot %}
-        </span>
-      </div>
+    <form up-submit up-validate method="POST">
+        {% csrf_token %}
+        <div class="input-group-append">
+            <span class="input-group-text">
+                <a
+                    up-layer='new popup'
+                    up-align='left'
+					up-size='large'
+                    up-accept-event='name:select'
+                    up-on-accepted="up.fragment.get('#id_name').value = value.name"
+                    href='{% url "project-suggest-name" %}'>Suggest name</a>
+                {% tourdot %}
+                    <p>
+                        The link opens a popup with suggestions for a project name.
+                    </p>
+                    <p>
+                        When a suggestion is clicked, the choice is communicated
+                        back to the project form via a custom <code>name:select</code> event.</p>
+                    <p>
+                        The <i>Suggest name</i> link has an <code>[up-on-accepted]</code>
+                        attribute that copies the suggestion into the project form.
+                    </p>
+                {% endtourdot %}
+            </span>
+        </div>
+        {{ form|crispy }}
 
 
-	<input type='submit' class='btn btn-primary mt-2' value='Save'>
-	{% if not form.instance %}
-		{% tourdot %}
-			<p>Saving an invalid form will re-render validation errors in the same overlay.</p>
-			<p>Links and forms always render in the same layer unless another layer is targeted explicitly.</p>
-		{% endtourdot %}
-	{% endif %}
-</form>
+        <div class="input-group-append">
+            <span class="input-group-text">
+                <a href='{% url "company-create" %}'
+                   up-layer='new'
+                   up-accept-location='/core/companies/detail/$id/'
+                   up-on-accepted="up.validate('form', { params: { 'company': value.id } })"
+                >
+                    New company
+                </a>
+
+                {% tourdot %}
+                    <p>
+                        A new company can be created in an overlay while the incomplete project form
+                        stays open in the background.
+                    </p>
+                    <p>
+                        The <i>New company</i> also defines a <i>close condition</i> using an <code>[up-accept-location]</code> attribute.
+                        This causes the overlay to automatically close when it reaches the URL of a newly created company.
+                    </p>
+
+                    <p>
+                        When a company was created successfully, the overlay is automatically closed.
+                        The project form reloads the company select box so the new company appears
+                        as an option.
+                    </p>
+                {% endtourdot %}
+            </span>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <div class="flex-grow-1">
+
+                <input type='submit' class='btn btn-primary' value='Save'>
+
+                {% if not form.instance.id %}
+                    {% tourdot %}
+                        <p>Saving an invalid form will re-render validation errors in the same overlay.</p>
+                        <p>Links and forms always render in the same layer unless another layer is targeted explicitly.</p>
+                    {% endtourdot %}
+                {% endif %}
+            </div>
+
+            <div>
+                {% if form.instance.id %}
+                    <a up-follow class='btn btn-outline-secondary' href='{% url "project-detail" form.instance.id %}'>Cancel</a>
+                {% endif %}
+            </div>
+        </div>
+
+    </form>
 {% endblock %}
