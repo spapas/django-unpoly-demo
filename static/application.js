@@ -1,5 +1,6 @@
 up.link.config.instantSelectors.unshift('a[up-follow]')
 up.link.config.preloadSelectors.unshift('a[up-follow]')
+up.link.config.instantSelectors.push('a[href]')
 
 // Enable more logging for curious users.
 up.log.enable()

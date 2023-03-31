@@ -3,7 +3,10 @@
 
 {% block content %}
 
-    <form  up-target='.task' class='task card' method="POST">
+    <form up-target='.task' class='task card' method="POST"
+    up-onloaded='console.log("l")'
+    up-finished='console.log("f")'
+    >
         {% csrf_token %}
         <div class="card-body d-flex flex-column">
             <div class="form-group flex-grow-1 mb-0">

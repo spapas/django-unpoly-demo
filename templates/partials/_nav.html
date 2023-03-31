@@ -1,11 +1,11 @@
 {% load core_tags %}
 
 <nav class="navbar navbar-expand navbar-light bg-light fixed-top">
-  <a class='navbar-brand' up-follow='' href='/'>Unpoly Demo</a>
+  <a class='navbar-brand' up-follow href='/'>Unpoly Demo</a>
   <div class="navbar-nav">
-    <a class='nav-item nav-link' up-follow href='{% url "company-list" %}' up-alias='/companies/'>Companies</a>
-    <a class='nav-item nav-link' up-follow href='{% url "project-list" %}' up-alias='/projects/'>Projects</a>
-    <a class='nav-item nav-link' up-follow href='{% url "task-list" %}' up-alias='/tasks/'>Tasks</a>
+    <a class='nav-item nav-link' up-follow href='{% url "company-list" %}' up-alias='{% url "company-list" %}*'>Companies</a>
+    <a class='nav-item nav-link' up-follow href='{% url "project-list" %}' up-alias='{% url "project-list" %}*'>Projects</a>
+    <a class='nav-item nav-link' up-follow href='{% url "task-list" %}' up-alias='{% url "task-list" %}*'>Tasks</a>
 
     <span class="nav-link">
       {% tourdot %}
@@ -15,6 +15,6 @@
       {% endtourdot %}
     </span>
 
-    <a class='nav-item nav-link' up-follow href='{% url "table-filter-list" %}' up-alias='/tf/'>Table - filter</a>
+    <a class='nav-item nav-link' up-follow href='{% url "table-filter-list" %}' up-alias='{% url "table-filter-list" %}?*'>Table - filter</a>
   </div>
 </nav>

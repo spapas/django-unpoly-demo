@@ -13,11 +13,15 @@ from . import models, tables, filters
 from django import forms
 from django.http import HttpResponseRedirect
 from django_tables2 import RequestConfig
+from django.contrib import messages
 
 
 class FormMixin:
     def form_valid(self, form):
+
         if form.is_valid() and not self.request.up.validate:
+            if hasattr(self, "success_message"):
+                messages.success(self.request, self.success_message)
             return super().form_valid(form)
         return self.render_to_response(self.get_context_data(form=form))
 
@@ -37,8 +41,10 @@ class CompanyDetailView(DetailView):
 
 
 class CompanyCreateView(FormMixin, CreateView):
+    success_message = "Company created successfully"
     model = models.Company
     fields = ["name", "address"]
+
 
 
 class CompanyUpdateView(FormMixin, UpdateView):
@@ -127,6 +133,7 @@ class TaskCreateView(FormMixin, CreateView):
         if form.is_valid() and not self.request.up.validate:
             super().form_valid(form)
             self.request.up.layer.accept()
+            messages.success(self.request, "Task created successfully")
             return HttpResponseRedirect(self.object.get_absolute_url())
             # return self.render_to_response(self.get_context_data(form=form))
         return self.render_to_response(self.get_context_data(form=form))
@@ -139,6 +146,7 @@ class TaskDetailView(DetailView):
 class TaskUpdateView(FormMixin, UpdateView):
     model = models.Task
     form_class = TaskForm
+    success_message = "Task updated successfully"
 
 
 class TaskDoneView(SingleObjectMixin, View):
@@ -148,6 +156,7 @@ class TaskDoneView(SingleObjectMixin, View):
         self.object = self.get_object()
         self.object.done = not self.object.done
         self.object.save()
+        messages.success(self.request, "Task marked as done!")
         return HttpResponseRedirect(self.object.get_absolute_url())
 
 

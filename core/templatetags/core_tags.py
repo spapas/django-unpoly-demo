@@ -45,7 +45,6 @@ class TourDotNode(template.Node):
         from django.utils.html import escape
 
         output = escape(rendered)
-        # a+=1
         return """
         <a 
             href="#" 

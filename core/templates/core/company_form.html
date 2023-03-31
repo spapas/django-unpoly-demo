@@ -17,12 +17,22 @@
         {% endtourdot %}
         {{ form|crispy }}
 
-        <input type='submit' class='btn btn-primary mt-2' value='Save'>
-        {% if not for.instance.id %}
-            {% tourdot %}
-                <p>Saving an invalid form will re-render validation errors in the same overlay.</p>
-                <p>Links and forms always render in the same layer unless another layer is targeted explicitly.</p>
-            {% endtourdot %}
-        {% endif %}
+        <div class="d-flex align-items-center">
+            <div class="flex-grow-1">
+                <input type='submit' class='btn btn-primary mt-2' value='Save'>
+                {% if not for.instance.id %}
+                    {% tourdot %}
+                        <p>Saving an invalid form will re-render validation errors in the same overlay.</p>
+                        <p>Links and forms always render in the same layer unless another layer is targeted explicitly.</p>
+                    {% endtourdot %}
+                {% endif %}
+            </div>
+
+            <div>
+                {% if form.instance.id %}
+                    <a up-follow class='btn btn-outline-secondary' href='{% url "company-detail" form.instance.id %}'>Cancel</a>
+                {% endif %}
+            </div>
+        </div>
     </form>
 {% endblock %}
