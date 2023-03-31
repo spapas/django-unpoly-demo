@@ -23,11 +23,11 @@ SECRET_KEY = os.environ.get(
 DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'unpoly-demo.spapas.net', 'unpoly-demo.fly.dev']
-CSRF_TRUSTED_ORIGINS = ['https://unpoly-demo.fly.dev/', 'https://unpoly-demo.spapas.net/']
+CSRF_TRUSTED_ORIGINS = ['https://unpoly-demo.fly.dev', 'https://unpoly-demo.spapas.net']
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-    RENDER_EXTERNAL_HOSTNAME.append('https://' + RENDER_EXTERNAL_HOSTNAME)
+    CSRF_TRUSTED_ORIGINS.append('https://' + RENDER_EXTERNAL_HOSTNAME)
 
 
 # Application definition
@@ -91,6 +91,9 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+        'OPTIONS': {
+            'timeout': 20,  # in seconds
+        }
     }
 }
 
@@ -129,13 +132,11 @@ STATIC_URL = "/static/"
 STATIC_ROOT = "c:/progr/py3/unpoly_demo/static"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATICFILES_FINDERS = [
-    # "compressor.finders.CompressorFinder",
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-# if not DEBUG:
-if True:
+if not DEBUG:
     # Tell Django to copy statics to the `staticfiles` directory
     # in your application directory on Render.
     STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
@@ -147,3 +148,17 @@ if True:
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+}
