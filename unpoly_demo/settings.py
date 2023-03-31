@@ -20,13 +20,15 @@ SECRET_KEY = os.environ.get(
     default="django-insecure-m#14j3@x^a6)_42x%yn4%rmy3ym$z@jn_7(%napllldb*))=xg",
 )
 # DEBUG = "RENDER" not in os.environ
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'unpoly-demo.spapas.net']
+ALLOWED_HOSTS = ['127.0.0.1', 'unpoly-demo.spapas.net', 'unpoly-demo.fly.dev']
+CSRF_TRUSTED_ORIGINS = ['https://unpoly-demo.fly.dev/', 'https://unpoly-demo.spapas.net/']
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-    
+    RENDER_EXTERNAL_HOSTNAME.append('https://' + RENDER_EXTERNAL_HOSTNAME)
+
 
 # Application definition
 
