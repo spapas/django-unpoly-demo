@@ -12,13 +12,12 @@
         <p>Note how the <i>Edit</i> link renders within this overlay.</p>
         <p>Links and forms always update their own layer unless another layer is targeted explicitly.</p>
       {% endtourdot %}
-
+      
       <a up-follow href='{% url "company-update" company.id %}' class="btn btn-primary" >Edit</a>
       <form up-submit up-confirm='Really?' class="d-inline" method='POST' action='{% url "company-delete" company.id %}'>
         {% csrf_token %}
-        <input type='submit' value='Delete' class='btn btn-danger mr-3' up-confirm='Really delete?'  />
+        <input type='submit' value='Delete' class='btn btn-danger mr-3'/>
       </form>
-
     </div>
   </div>
 

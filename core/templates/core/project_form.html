@@ -35,17 +35,17 @@
             </span>
         </div>
         {{ form|crispy }}
-
+        
         <div class="input-group-append">
             <span class="input-group-text">
                 <a href='{% url "company-create" %}'
                    up-layer='new'
-                   up-accept-location='/core/companies/detail/$id/'
+                   up-accept-location='{% urlid "company-detail" "$id" %}'
                    up-on-accepted="up.validate('form', { params: { 'company': value.id } })"
                 >
                     New company
                 </a>
-
+                
                 {% tourdot %}
                     <p>
                         A new company can be created in an overlay while the incomplete project form

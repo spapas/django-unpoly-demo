@@ -21,11 +21,12 @@
           The <code>[up-on-accepted]</code> attribute causes the company list below to reload when the overlay closes.
         </p>
       {% endtourdot %}
+      
       <a
         class='btn btn-primary'
         up-layer='new'
         up-on-accepted="up.reload('.table', { focus: ':main' })"
-        up-accept-location='/core/companies/detail/$id/'
+        up-accept-location='{% urlid "company-detail" "$id" %}'
         href='{% url "company-create" %}'>New company</a>
 
     </div>

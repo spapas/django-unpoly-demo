@@ -60,3 +60,13 @@ class TourDotNode(template.Node):
         """.format(
             output, size
         )
+
+
+@register.simple_tag
+def urlid(path, arg):
+    from django.urls import reverse
+    if arg == "$id":
+        arg = 999
+    
+    url = reverse(path, args=[arg])
+    return url.replace("999", "$id")
