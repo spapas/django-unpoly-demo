@@ -19,8 +19,8 @@ SECRET_KEY = os.environ.get(
     "SECRET_KEY",
     default="django-insecure-m#14j3@x^a6)_42x%yn4%rmy3ym$z@jn_7(%napllldb*))=xg",
 )
-# DEBUG = "RENDER" not in os.environ
-DEBUG = False
+DEBUG = "RENDER" not in os.environ and "FLY_APP_NAME" not in os.environ
+
 
 ALLOWED_HOSTS = ['127.0.0.1', 'unpoly-demo.spapas.net', 'unpoly-demo.fly.dev']
 CSRF_TRUSTED_ORIGINS = ['https://unpoly-demo.fly.dev', 'https://unpoly-demo.spapas.net']
@@ -135,6 +135,7 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
+
 
 if not DEBUG:
     # Tell Django to copy statics to the `staticfiles` directory
