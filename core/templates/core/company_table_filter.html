@@ -11,10 +11,7 @@
   <div class="row">
     <div class="col">
         <form up-submit up-autosubmit class='form-inline' method='GET' action='' up-target='.form-data'>
-            
             {{ filter.form|crispy }}
-            
-            
             <input class='btn btn-info' type='submit' value='Filter'>
             <a up-follow href='{{ request.path }}' class='btn btn-secondary'>Reset</a>
         </form>
