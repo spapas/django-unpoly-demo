@@ -3,7 +3,7 @@ up.link.config.preloadSelectors.unshift('a[up-follow]')
 up.link.config.instantSelectors.push('a[href]')
 
 // Enable more logging for curious users.
-up.log.enable()
+//up.log.enable()
 
 // Gray out tour dots once clicked.
 up.on('up:link:follow', '.tour-dot', (event, element) => { element.classList.add('viewed') })
@@ -24,6 +24,10 @@ up.macro('th.orderable a[href]', (link) => {
   link.setAttribute('up-target', ".table-container")
 })
 
+async function reloadWithFlash(selector, flash) {
+  await up.reload(selector)
+  up.element.affix(document.getElementById('flash-messages'), '.alert.fade.show.alert-success', { text: flash })
+}
 
 // Don't highlight the fragment insertion from the initial compile on DOMContentLoaded.
 window.addEventListener('load', (event) => {
@@ -34,3 +38,4 @@ window.addEventListener('load', (event) => {
     up.util.timer(1000, () => fragment.classList.remove('new-fragment'))
   })
 })
+

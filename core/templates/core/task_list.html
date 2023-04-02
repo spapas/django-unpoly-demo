@@ -24,9 +24,10 @@
 
       <a
         class='btn btn-primary'
-        up-target='.tasks'
         up-layer='new'
-        up-on-accepted="up.reload('.tasks')"
+        up-context='{"new_task": true}'
+        up-accept-location='/core/tasks/detail/$id/'
+        up-on-accepted="reloadWithFlash('.tasks', 'Task created!')"
         href='{% url "task-create" %}'>New task</a>
     </div>
   </div>

@@ -49,6 +49,7 @@ class CompanyCreateView(FormMixin, CreateView):
 
 class CompanyUpdateView(FormMixin, UpdateView):
     model = models.Company
+    success_message = "Company updated successfully"
     fields = ["name", "address"]
 
 
@@ -80,11 +81,13 @@ class ProjectDeleteView(DeleteView):
 
 class ProjectCreateView(FormMixin, CreateView):
     model = models.Project
+    success_message = "Project created successfully"
     fields = ["name", "budget", "company"]
 
 
 class ProjectUpdateView(FormMixin, UpdateView):
     model = models.Project
+    success_message = "Project updated successfully"
     fields = ["name", "budget", "company"]
 
 
@@ -128,15 +131,7 @@ class TaskForm(forms.ModelForm):
 class TaskCreateView(FormMixin, CreateView):
     model = models.Task
     form_class = TaskForm
-
-    def form_valid(self, form):
-        if form.is_valid() and not self.request.up.validate:
-            super().form_valid(form)
-            self.request.up.layer.accept()
-            messages.success(self.request, "Task created successfully")
-            return HttpResponseRedirect(self.object.get_absolute_url())
-            # return self.render_to_response(self.get_context_data(form=form))
-        return self.render_to_response(self.get_context_data(form=form))
+    success_message = "Task created successfully"
 
 
 class TaskDetailView(DetailView):
@@ -163,6 +158,7 @@ class TaskDoneView(SingleObjectMixin, View):
 class ClearTasksView(View):
     def post(self, request, *args, **kwargs):
         models.Task.objects.filter(done=True).delete()
+        messages.success(self.request, "Tasks cleared!")
         return HttpResponseRedirect(reverse("task-list"))
 
 

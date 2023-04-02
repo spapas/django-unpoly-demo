@@ -1,4 +1,4 @@
-<div class="flash-messages" up-hungry>
+<div id='flash-messages' class="flash-messages" up-hungry>
     {% for message in messages %}
         <div class="alert fade show {% if message.tags %} alert-{% if 'error' in message.tags %}danger{% else %}{{ message.tags }}{% endif %}{% endif %}">
             {{ message }}
