@@ -22,12 +22,12 @@ SECRET_KEY = os.environ.get(
 DEBUG = "RENDER" not in os.environ and "FLY_APP_NAME" not in os.environ
 
 
-ALLOWED_HOSTS = ['127.0.0.1', 'unpoly-demo.spapas.net', 'unpoly-demo.fly.dev']
-CSRF_TRUSTED_ORIGINS = ['https://unpoly-demo.fly.dev', 'https://unpoly-demo.spapas.net']
+ALLOWED_HOSTS = ["127.0.0.1", "unpoly-demo.spapas.net", "unpoly-demo.fly.dev"]
+CSRF_TRUSTED_ORIGINS = ["https://unpoly-demo.fly.dev", "https://unpoly-demo.spapas.net"]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-    CSRF_TRUSTED_ORIGINS.append('https://' + RENDER_EXTERNAL_HOSTNAME)
+    CSRF_TRUSTED_ORIGINS.append("https://" + RENDER_EXTERNAL_HOSTNAME)
 
 
 # Application definition
@@ -44,9 +44,9 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
 ]
-
 
 
 MIDDLEWARE = [
@@ -93,9 +93,9 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-        'OPTIONS': {
-            'timeout': 20,  # in seconds
-        }
+        "OPTIONS": {
+            "timeout": 20,  # in seconds
+        },
     }
 }
 
@@ -142,10 +142,11 @@ STATICFILES_FINDERS = [
 if not DEBUG:
     # Tell Django to copy statics to the `staticfiles` directory
     # in your application directory on Render.
-    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
     # Turn on WhiteNoise storage backend that takes care of compressing static files
     # and creating unique names for each version so they can safely be cached forever.
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+    #STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
