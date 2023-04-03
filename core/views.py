@@ -61,6 +61,7 @@ class CompanyDeleteView(DeleteView):
 
     def form_valid(self, form):
         self.request.up.layer.emit("company:destroyed", {})
+        messages.success(self.request, "Company deleted successfully")
         return super().form_valid(form)
 
 
@@ -76,6 +77,7 @@ class ProjectDeleteView(DeleteView):
 
     def form_valid(self, form):
         self.request.up.layer.emit("project:destroyed", {})
+        messages.success(self.request, "Project deleted successfully")
         return super().form_valid(form)
 
 

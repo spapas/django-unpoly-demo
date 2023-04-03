@@ -10,7 +10,7 @@
   </div>
   <div class="row">
     <div class="col">
-        <form up-submit up-autosubmit class='form-inline' method='GET' action='' up-target='.form-data'>
+        <form up-autosubmit up-delay='250' class='form-inline' method='GET' action='' up-target='.form-data'>
             {{ filter.form|crispy }}
             <input class='btn btn-info' type='submit' value='Filter'>
             <a up-follow href='{{ request.path }}' class='btn btn-secondary'>Reset</a>
@@ -18,9 +18,9 @@
     </div>
 </div>
 
-<div class='form-data'>
-  <div class='row'>
-    <div class='col'>
+<div class='row'>
+  <div class='col'>
+      <div class='form-data'>
         {% render_table table %}
       </div>
     </div>

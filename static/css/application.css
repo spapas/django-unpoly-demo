@@ -7310,9 +7310,9 @@ up-popup-content {
     background-color: rgba(255, 221, 0, 0.7); }
 
 .table-container th.asc:after {
-  content: '\0000a0\0025b2';
-  float: right; }
+  content: '\0000a0\0025b2\00a0\00a0';
+  float: left; }
 
 .table-container th.desc:after {
-  content: '\0000a0\0025bc';
-  float: right; }
+  content: '\0000a0\0025bc\00a0\00a0';
+  float: left; }

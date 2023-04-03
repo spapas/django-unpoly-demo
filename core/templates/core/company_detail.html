@@ -14,10 +14,17 @@
       {% endtourdot %}
       
       <a up-follow href='{% url "company-update" company.id %}' class="btn btn-primary" >Edit</a>
-      <form up-submit up-confirm='Really?' class="d-inline" method='POST' action='{% url "company-delete" company.id %}'>
+
+      <a class='btn btn-danger' up-layer="new" up-content='
+      <h3>Delete company {{ company.name }}</h3>
+      Do you want to delete the company? 
+      <form up-submit up-layer="root" class="d-inline" method="POST" action="{% url "company-delete" company.id %}">
         {% csrf_token %}
-        <input type='submit' value='Delete' class='btn btn-danger mr-3'/>
+        <input type="submit" value="Yes" class="btn btn-danger mr-3"/>
+        <a href="#" class="btn btn-secondary"  up-dismiss>No</a>
       </form>
+      '>Delete</a>
+
     </div>
   </div>
 

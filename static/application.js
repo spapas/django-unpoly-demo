@@ -9,24 +9,31 @@ up.link.config.instantSelectors.push('a[href]')
 up.on('up:link:follow', '.tour-dot', (event, element) => { element.classList.add('viewed') })
 
 /*
-up.macro('nav a[href]', (link) => {
+up.compiler('nav a[href]', (link) => {
   if(!link.href.endsWith('#')) link.setAttribute('up-alias', link.href + '?*')
 })
 */
 
-up.macro('.pagination .page-item a.page-link', (link) => {
+up.compiler('.pagination .page-item a.page-link', (link) => {
   link.setAttribute('up-follow', link.href)
   link.setAttribute('up-target', ".table-container")
 })
 
-up.macro('th.orderable a[href]', (link) => {
+up.compiler('th.orderable a[href]', (link) => {
   link.setAttribute('up-follow', link.href)
   link.setAttribute('up-target', ".table-container")
 })
 
 async function reloadWithFlash(selector, flash) {
-  await up.reload(selector)
+  await up.reload(selector, { focus: ':main' })
   up.element.affix(document.getElementById('flash-messages'), '.alert.fade.show.alert-success', { text: flash })
+}
+
+async function reloadWithFlashIfEvent(selector, flash, value) {
+  await up.reload(selector, { focus: ':main' })
+  if(value instanceof Event || value == ':peel') {
+    up.element.affix(document.getElementById('flash-messages'), '.alert.fade.show.alert-danger', { text: flash })
+  }
 }
 
 // Don't highlight the fragment insertion from the initial compile on DOMContentLoaded.

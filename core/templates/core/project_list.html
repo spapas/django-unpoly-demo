@@ -12,7 +12,7 @@
       <a
         class='btn btn-primary'
         up-layer='new'
-        up-on-accepted="up.reload('.table', { focus: ':main' })"
+        up-on-accepted="reloadWithFlash('.table', 'Project created!')"
         up-accept-location='/core/projects/detail/$id/'
         href='{% url "project-create" %}'>New project</a>
 

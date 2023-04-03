@@ -43,10 +43,10 @@
       {% for company in object_list %}
         <tr>
           <td>
+            
             <a
               up-layer='new'
-              up-dismissable='button'
-              up-on-dismissed="console.log(value, event); up.reload('.table', { focus: ':main' })"
+              up-on-dismissed="reloadWithFlashIfEvent('.table', 'Company deleted!', value)"
               up-dismiss-event='company:destroyed'
               href="{% url 'company-detail' company.id %}">{{ company.name }}</a>
 
