@@ -17,11 +17,13 @@ up.compiler('nav a[href]', (link) => {
 up.compiler('.pagination .page-item a.page-link', (link) => {
   link.setAttribute('up-follow', link.href)
   link.setAttribute('up-target', ".table-container")
+  link.setAttribute('up-history', "true")
 })
 
 up.compiler('th.orderable a[href]', (link) => {
   link.setAttribute('up-follow', link.href)
   link.setAttribute('up-target', ".table-container")
+  link.setAttribute('up-history', "true")
 })
 
 async function reloadWithFlash(selector, flash) {
