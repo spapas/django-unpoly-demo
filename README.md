@@ -9,3 +9,6 @@ The demo has been deployed on fly.io and render.com and can be accessed at
 [https://unpoly-demo.spapas.net/](https://unpoly-demo.spapas.net/) or 
 [https://unpoly-demo.fly.dev/](https://unpoly-demo.fly.dev/) or 
 [https://unpoly-demo.onrender.com/](https://unpoly-demo.onrender.com/).
+
+A companion article explaining stuff about this demo and about the django
+unpoly integration in general can be found on https://www.spapas.net/2023/04/04/using-unpoly-with-django/
