@@ -7,7 +7,7 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def fragment_explainer(context):
     view = context["view"]
-    template_name = " ".join(view.get_template_names())
+    template_name = view.get_template_names()[0]
     return {
         "view": view.__class__.__name__,
         "view_code": "https://github.com/spapas/django-unpoly-demo/blob/master/core/views.py",
