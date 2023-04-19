@@ -46,7 +46,6 @@ class CompanyCreateView(FormMixin, CreateView):
     fields = ["name", "address"]
 
 
-
 class CompanyUpdateView(FormMixin, UpdateView):
     model = models.Company
     success_message = "Company updated successfully"

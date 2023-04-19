@@ -33,7 +33,7 @@
           <td>
             <a
               up-layer='new'
-              up-on-dismissed="up.reload('.table', { focus: ':main' })"
+              up-on-dismissed="reloadWithFlashIfEvent('.table', 'Project deleted!', value)"
               up-dismiss-event='project:destroyed'
               href="{% url 'project-detail' project.id %}">{{ project.name }}</a>
 
