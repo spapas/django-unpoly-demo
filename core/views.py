@@ -14,11 +14,12 @@ from django import forms
 from django.http import HttpResponseRedirect
 from django_tables2 import RequestConfig
 from django.contrib import messages
+from django.forms import models as model_forms
+from django.forms import Textarea
 
 
 class FormMixin:
     def form_valid(self, form):
-
         if form.is_valid() and not self.request.up.validate:
             if hasattr(self, "success_message"):
                 messages.success(self.request, self.success_message)
@@ -32,6 +33,22 @@ class FormMixin:
         return initial
 
 
+class SmallAddressMixin:
+    def get_form_class(self):
+        return model_forms.modelform_factory(
+            self.model,
+            fields=self.fields,
+            widgets={
+                "address": Textarea(
+                    attrs={
+                        "rows": 4,
+                        "cols": 20,
+                    }
+                )
+            },
+        )
+
+
 class CompanyListView(ListView):
     model = models.Company
 
@@ -40,13 +57,13 @@ class CompanyDetailView(DetailView):
     model = models.Company
 
 
-class CompanyCreateView(FormMixin, CreateView):
+class CompanyCreateView(SmallAddressMixin, FormMixin, CreateView):
     success_message = "Company created successfully"
     model = models.Company
     fields = ["name", "address"]
 
 
-class CompanyUpdateView(FormMixin, UpdateView):
+class CompanyUpdateView(SmallAddressMixin, FormMixin, UpdateView):
     model = models.Company
     success_message = "Company updated successfully"
     fields = ["name", "address"]
