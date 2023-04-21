@@ -9,7 +9,7 @@
         <h2 class="mb-4">New project</h2>
     {% endif %}
 
-    <form up-submit up-validate method="POST">
+    <form up-submit up-validate up-disable method="POST">
         {% csrf_token %}
         <div class="input-group-append">
             <span class="input-group-text">

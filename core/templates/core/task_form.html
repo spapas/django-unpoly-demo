@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <form up-submit {% if not up.context.new_task %}up-target='.task'{% endif %} class='task card' method="POST">
+    <form up-submit up-disable {% if not up.context.new_task %}up-target='.task'{% endif %} class='task card' method="POST">
         {% csrf_token %}
         <div class="card-body d-flex flex-column">
             <div class="form-group flex-grow-1 mb-0">

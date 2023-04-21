@@ -9,7 +9,7 @@
         <h2 class="mb-4">New company</h2>
     {% endif %}
 
-    <form up-submit up-validate method="POST">
+    <form up-submit up-validate up-disable method="POST">
         {% csrf_token %}
         {% tourdot %}
             <p>The form is being validated on the server as you're completing fields.</p>
